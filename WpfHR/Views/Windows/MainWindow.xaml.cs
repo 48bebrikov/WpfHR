@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
+using WpfHR.Views;
 
 namespace WpfHR
 {
@@ -10,22 +10,25 @@ namespace WpfHR
         public MainWindow()
         {
             InitializeComponent();
-            _moduleViewModel = new WpfHR.ViewModels.ModuleViewModel(); // Создаем один экземпляр
+            _moduleViewModel = new WpfHR.ViewModels.ModuleViewModel();
         }
 
         private void OnAdaptationModulesClick(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new WpfHR.Views.ModuleView();
+            WelcomeText.Visibility = Visibility.Collapsed;
+            ContentArea.Content = new ModuleView();
         }
 
         private void OnConstructorClick(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new WpfHR.Views.ConstructorView();
+            WelcomeText.Visibility = Visibility.Collapsed;
+            ContentArea.Content = new ConstructorView();
         }
 
         private void OnAnalysisClick(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new WpfHR.Views.AnalysisControl();
+            WelcomeText.Visibility = Visibility.Collapsed;
+            ContentArea.Content = new AnalysisControl();
         }
     }
 }

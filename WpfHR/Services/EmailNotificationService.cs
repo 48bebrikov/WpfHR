@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using WpfHR.Services;
 using WpfHR.Models;
+using dotenv.net;
 using System.IO;
 
 namespace WpfHR.Services
@@ -15,6 +16,7 @@ namespace WpfHR.Services
         public NotificationService(PdfService pdfService)
         {
             _pdfService = pdfService;
+            DotEnv.Load();
         }
 
         public void SendNotification(Module module, string message)
@@ -27,10 +29,13 @@ namespace WpfHR.Services
 
             try
             {
-                var smtpClient = new SmtpClient("smtp.your-email-provider.com")
+                var smtpClient = new SmtpClient(Environment.GetEnvironmentVariable("SMTP_SERVER"))
                 {
-                    Port = 587,
-                    Credentials = new NetworkCredential("your-email@example.com", "your-email-password"),
+                    Port = int.Parse(Environment.GetEnvironmentVariable("SMTP_PORT")),
+                    Credentials = new NetworkCredential(
+                        Environment.GetEnvironmentVariable("SMTP_EMAIL"),
+                        Environment.GetEnvironmentVariable("SMTP_PASSWORD")
+                    ),
                     EnableSsl = true,
                 };
 
@@ -38,7 +43,7 @@ namespace WpfHR.Services
                 {
                     var mailMessage = new MailMessage
                     {
-                        From = new MailAddress("your-email@example.com"),
+                        From = new MailAddress(Environment.GetEnvironmentVariable("SMTP_EMAIL")),
                         Subject = $"Новый адаптационный модуль: {module.CodeName}",
                         Body = message,
                         IsBodyHtml = false,

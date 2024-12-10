@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="WpfHR.Views.AnalysisControl" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:WpfHR.Converters"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:EmptyToVisibilityConverter x:Key="EmptyToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок -->
+        <TextBlock Grid.Row="0" Text="Анализ программ адаптации" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" HorizontalAlignment="Center" />
+
+        <!-- Фильтры -->
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,10">
+            <ComboBox x:Name="DepartmentFilter" Width="200" Margin="10" ItemsSource="{Binding Departments}" SelectedValue="{Binding SelectedDepartment}" />
+            <ComboBox x:Name="PositionFilter" Width="200" Margin="10" ItemsSource="{Binding Positions}" SelectedValue="{Binding SelectedPosition}" />
+            <Button Content="Применить фильтры" Width="200" Margin="10" Click="OnApplyFiltersClick" />
+        </StackPanel>
+
+        <!-- Таблица -->
+        <DataGrid x:Name="ProgramsDataGrid" Grid.Row="2" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" Margin="0,10,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeName}" Width="*"/>
+                <DataGridTextColumn Header="Должность" Binding="{Binding Position}" Width="*"/>
+                <DataGridTextColumn Header="Количество ошибок" Binding="{Binding ErrorsCount}" Width="*"/>
+                <DataGridTextColumn Header="Процент выполнения" Binding="{Binding CompletionPercentage}" Width="*"/>
+                <DataGridCheckBoxColumn Header="Трудоустройство" Binding="{Binding IsEmployed}" Width="*"/>
+                <DataGridTemplateColumn Width="Auto" Header="Настройка">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="⚙️" Width="30" Height="30" ToolTip="Настройки" Background="White" Command="{Binding DataContext.EditCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" CommandParameter="{Binding}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Диаграмма -->
+        <lvc:CartesianChart Grid.Row="3"
+                            x:Name="completionChart"
+                            Series="{Binding SeriesCollection}"
+                            AxisX="{Binding AxisX}"
+                            AxisY="{Binding AxisY}"
+                            Margin="0,10,0,0">
+        </lvc:CartesianChart>
+    </Grid>
+</UserControl>

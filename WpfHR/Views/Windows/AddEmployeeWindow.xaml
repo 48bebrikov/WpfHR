@@ -1,0 +1,56 @@
+﻿<Window x:Class="WpfHR.Views.Windows.AddEmployeeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавить сотрудника" Height="500" Width="400">
+    <Grid Margin="10">
+        <!-- Определяем строки и столбцы -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Поле для ввода ФИО -->
+        <TextBlock Text="ФИО:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5" />
+        <TextBox Name="FullNameTextBox" Grid.Row="0" Grid.Column="1" Margin="5" />
+
+        <!-- Поле для ввода отдела -->
+        <TextBlock Text="Отдел:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5" />
+        <TextBox Name="DepartmentTextBox" Grid.Row="1" Grid.Column="1" Margin="5" />
+
+        <!-- Поле для ввода должности -->
+        <TextBlock Text="Должность:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="5" />
+        <TextBox Name="PositionTextBox" Grid.Row="2" Grid.Column="1" Margin="5" />
+
+        <!-- Кнопка для добавления сотрудника -->
+        <Button Content="Добавить сотрудника" Grid.Row="3" Grid.ColumnSpan="2" Width="200" 
+                HorizontalAlignment="Center" Margin="5"
+                Click="OnAddEmployeeClick" />
+
+        <!-- Заголовок для списка сотрудников -->
+        <TextBlock Text="Список сотрудников:" Grid.Row="4" Grid.ColumnSpan="2" 
+                   FontWeight="Bold" FontSize="14" Margin="5" HorizontalAlignment="Center" />
+
+        <!-- Блок со списком сотрудников -->
+        <Border Grid.Row="5" Grid.ColumnSpan="2" Margin="5" Padding="5" BorderBrush="Gray" BorderThickness="1">
+            <ListBox Name="EmployeesListBox" 
+                     DisplayMemberPath="FullName" 
+                     SelectionMode="Single" 
+                     Background="LightYellow" 
+                     Foreground="Black" />
+        </Border>
+
+        <!-- Кнопка для удаления сотрудника -->
+        <Button Content="Удалить выбранного сотрудника" Grid.Row="6" Grid.ColumnSpan="2" Width="250"
+                HorizontalAlignment="Center" Margin="5"
+                Click="OnDeleteEmployeeClick" />
+    </Grid>
+</Window>

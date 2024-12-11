@@ -10,7 +10,8 @@ namespace WpfHR.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=AdaptationModulesDB;Trusted_Connection=True;");
+            // Указываем путь к файлу базы данных в папке Database
+            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\AdaptationModulesDB.mdf;Integrated Security=True;");
         }
     }
 }

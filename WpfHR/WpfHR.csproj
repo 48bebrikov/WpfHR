@@ -38,6 +38,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Database\AdaptationModulesDB.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Database\AdaptationModulesDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

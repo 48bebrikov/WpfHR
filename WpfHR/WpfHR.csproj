@@ -37,4 +37,10 @@
     <Folder Include="PDF\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database\AdaptationModulesDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
